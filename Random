@@ -6,10 +6,9 @@
 local ScreenGui = Instance.new("ScreenGui")
 local TextButton = Instance.new("TextButton")
 local Frame = Instance.new("Frame")
+local UIGrindLayout = Instance.new("UIGridLayout")
 local FirstGUI = Instance.new("TextButton")
 local Frame_2 = Instance.new("Frame")
-local SecondGUI = Instance.new("TextButton")
-local Frame_3 = Instance.new("Frame")
 
 --Properties:
 
@@ -28,45 +27,16 @@ TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
 TextButton.TextSize = 14.000
 
 Frame.Parent = TextButton
-Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Frame.BackgroundTransparency = 1.000
+Frame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+Frame.BackgroundTransparency = 0.5
 Frame.Position = UDim2.new(0, 0, 1, 0)
-Frame.Size = UDim2.new(0, 335, 0, 260)
+Frame.Size = UDim2.new(0, 335, 0, 20)
 Frame.Visible = false
 
-FirstGUI.Name = "FirstGUI"
-FirstGUI.Parent = Frame
-FirstGUI.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-FirstGUI.BackgroundTransparency = 0.500
-FirstGUI.Size = UDim2.new(0, 167, 0, 20)
-FirstGUI.Font = Enum.Font.SourceSans
-FirstGUI.Text = "AutoFarm"
-FirstGUI.TextColor3 = Color3.fromRGB(0, 255, 255)
-FirstGUI.TextSize = 20.000
-
-Frame_2.Parent = FirstGUI
-Frame_2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-Frame_2.BackgroundTransparency = 0.500
-Frame_2.Position = UDim2.new(0, 0, 1, 0)
-Frame_2.Size = UDim2.new(0, 335, 0, 239)
-
-SecondGUI.Name = "SecondGUI"
-SecondGUI.Parent = Frame
-SecondGUI.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-SecondGUI.BackgroundTransparency = 0.600
-SecondGUI.Position = UDim2.new(0.5, 0, 0, 0)
-SecondGUI.Size = UDim2.new(0, 167, 0, 20)
-SecondGUI.Font = Enum.Font.SourceSans
-SecondGUI.Text = "Credits"
-SecondGUI.TextColor3 = Color3.fromRGB(255, 255, 255)
-SecondGUI.TextSize = 20.000
-
-Frame_3.Parent = SecondGUI
-Frame_3.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-Frame_3.BackgroundTransparency = 0.500
-Frame_3.Position = UDim2.new(-1.00100005, 0, 1, 0)
-Frame_3.Size = UDim2.new(0, 335, 0, 239)
-Frame_3.Visible = false
+UIGrindLayout.Parent = Frame
+UIGrindLayout.CellPadding = UDim2.new(0,0,0,0)
+UIGrindLayout.CellSize = UDim2.new(0,50,0,20)
+UIGrindLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 
 -- Scripts:
@@ -157,28 +127,13 @@ local function HWFUJ_fake_script() -- ScreenGui.LocalScript
 			wait()
 		end
 	end)
-	FirstGUI.MouseButton1Up:Connect(function()
-		FirstGUI.Frame.Visible = true
-		FirstGUI.BackgroundTransparency = 0.5
-		FirstGUI.TextColor3 = Color3.new(0, 85, 255)
-		SecondGUI.Frame.Visible = false
-		SecondGUI.BackgroundTransparency = 0.6
-		SecondGUI.TextColor3 = Color3.new(255, 255, 255)
-	end)
-	SecondGUI.MouseButton1Up:Connect(function()
-		SecondGUI.Frame.Visible = true
-		SecondGUI.BackgroundTransparency = 0.5
-		SecondGUI.TextColor3 = Color3.new(0, 85, 255)
-		FirstGUI.Frame.Visible = false
-		FirstGUI.BackgroundTransparency = 0.6
-		FirstGUI.TextColor3 = Color3.new(255, 255, 255)
-	end)
 end
 HWFUJ_fake_script()
 
---CreateRandomShitOnGui
+--CreateRandomShitOnGui:
 
 local gap = UDim2.new(0.1,0,0.1,0)
+local FramePosition = UDim2.new(0,0,1,0)
 local function CreateDropDownMenu(WhichFrame,Name,Text,targetlist,IsAPreSetTable,position) -- Frame_2.LocalScript
 	local TextButton_2 = Instance.new("TextButton")
 	local ScrollingFrame = Instance.new("ScrollingFrame")
@@ -224,12 +179,12 @@ local function CreateDropDownMenu(WhichFrame,Name,Text,targetlist,IsAPreSetTable
 	ScrollingFrame.Position = UDim2.new(0, 0, 1, 0)
 	ScrollingFrame.Size = UDim2.new(0, 100, 0, 70)
 	ScrollingFrame.Visible = false
-	ScrollingFrame.CanvasSize = UDim2.new(0, 0, 2, 200)
 	ScrollingFrame.ScrollBarThickness = 5
 	UIListLayout.Parent = ScrollingFrame
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	local menu = ScrollingFrame
 	local mainbutton = TextButton_2
+	local HowManyButtons = UDim2.new(0,0,0,0)
 	for _,v in pairs(targetlist) do
 		if IsAPreSetTable and not menu:FindFirstChild(v.Name) then
 			local Button = Instance.new("TextButton")
@@ -242,6 +197,7 @@ local function CreateDropDownMenu(WhichFrame,Name,Text,targetlist,IsAPreSetTable
 			Button.Text = v
 			Button.Name = v
 			wait()
+			HowManyButtons = HowManyButtons + UDim2.new(0,0,0,20)
 		elseif v:IsA("Model") and not menu:FindFirstChild(v.Name) then
 			local Button = Instance.new("TextButton")
 			Button.Parent = menu
@@ -253,8 +209,10 @@ local function CreateDropDownMenu(WhichFrame,Name,Text,targetlist,IsAPreSetTable
 			Button.Text = v.Name
 			Button.Name = v.Name
 			wait()
+			HowManyButtons = HowManyButtons + UDim2.new(0,0,0,20)
 		end
 	end
+	ScrollingFrame.CanvasSize = HowManyButtons
 	for _,v in pairs(menu:GetChildren()) do
 		if v.ClassName == ("TextButton") then
 			v.MouseButton1Click:Connect(function()
@@ -356,4 +314,46 @@ local function CreateTextBox(WhichFrame,Name,Text,position)
 	TextLabel.TextSize = 14.000
 	TextLabel.Font = Enum.Font.SourceSans
 end
---CreationPart
+local function CreateNewFrame(Name,Text,visible)
+	local NewTab = Instance.new("TextButton")
+	local Frame1 = Instance.new("Frame")
+	NewTab.Parent = Frame
+	NewTab.Name = Name
+	NewTab.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	NewTab.Size = UDim2.new(0, 167, 0, 20)
+	NewTab.Font = Enum.Font.SourceSans
+	NewTab.Text = Text
+	NewTab.TextSize = 14.000
+
+	Frame1.Parent = NewTab
+	Frame1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	Frame1.BackgroundTransparency = 0.500
+	Frame1.Position = FramePosition
+	FramePosition = FramePosition + UDim2.new(-1,0,0,0)
+	Frame1.Size = UDim2.new(0, 335, 0, 239)
+	Frame1.Visible = false
+	if visible then
+		NewTab.TextColor3 = Color3.fromRGB(0, 255, 255)
+		NewTab.BackgroundTransparency = 0.500
+		Frame1.Visible = true
+	else
+		NewTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+		NewTab.BackgroundTransparency = 0.600
+		Frame1.Visible = false
+	end
+	
+	NewTab.MouseButton1Up:Connect(function()
+		NewTab.Frame.Visible = true
+		NewTab.BackgroundTransparency = 0.5
+		NewTab.TextColor3 = Color3.new(0, 85, 255)
+		for _,v in pairs(Frame:GetChildren()) do
+			if v:IsA("TextButton") and v.Name ~= NewTab.Name then
+				v.Frame.Visible = false
+				v.BackgroundTransparency = 0.6
+				v.TextColor3 = Color3.new(255, 255, 255)
+			end
+		end
+	end)
+end
+
+--CreationPart:
