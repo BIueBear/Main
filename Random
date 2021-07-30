@@ -316,8 +316,9 @@ local function CreateCheckBox(WhichFrame,Name,position)
 		end	
 	end)
 end
-local function CreateTextBox(WhichFrame,Name,position)
+local function CreateTextBox(WhichFrame,Name,Text,position)
 	local TextBox = Instance.new("TextBox")
+	local TextLabel = Instance.new("TextLabel")
 	TextBox.Parent = WhichFrame
 	TextBox.Name = Name
 	TextBox.Text = ""
@@ -342,5 +343,17 @@ local function CreateTextBox(WhichFrame,Name,position)
 	TextBox.Text = Name
 	TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 	TextBox.TextSize = 14.000
+	TextLabel.Parent = TextBox
+	TextLabel.Name = Text
+	TextLabel.Position = UDim2.new(0,0,1,0)
+	TextLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.BorderColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BorderSizePixel = 0
+	TextLabel.Size = UDim2.new(0, 100, 0, 20)
+	TextLabel.Text = Text
+	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.TextSize = 14.000
+	TextLabel.Font = Enum.Font.SourceSans
 end
 --CreationPart
