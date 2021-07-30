@@ -218,7 +218,7 @@ local function CreateDropDownMenu(WhichFrame,Name,targetlist,IsAPreSetTable,posi
 	local menu = ScrollingFrame
 	local mainbutton = TextButton_2
 	for _,v in pairs(targetlist) do
-		if IsAPreSetTable then
+		if IsAPreSetTable and not menu:FindFirstChild(v.Name) then
 			local Button = Instance.new("TextButton")
 			Button.Parent = menu
 			Button.BackgroundColor3 = Color3.new(0,0,0)
@@ -227,8 +227,9 @@ local function CreateDropDownMenu(WhichFrame,Name,targetlist,IsAPreSetTable,posi
 			Button.Font = "GothamBold"
 			Button.BackgroundTransparency = 0.7
 			Button.Text = v
+			Button.Name = v
 			wait()
-		elseif v:IsA("Model") then
+		elseif v:IsA("Model") and not menu:FindFirstChild(v.Name) then
 			local Button = Instance.new("TextButton")
 			Button.Parent = menu
 			Button.BackgroundColor3 = Color3.new(0,0,0)
@@ -237,6 +238,7 @@ local function CreateDropDownMenu(WhichFrame,Name,targetlist,IsAPreSetTable,posi
 			Button.Font = "GothamBold"
 			Button.BackgroundTransparency = 0.7
 			Button.Text = v.Name
+			Button.Name = v.Name
 			wait()
 		end
 	end
