@@ -1,0 +1,303 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local ScreenGui = Instance.new("ScreenGui")
+local TextButton = Instance.new("TextButton")
+local Frame = Instance.new("Frame")
+local FirstGUI = Instance.new("TextButton")
+local Frame_2 = Instance.new("Frame")
+local SecondGUI = Instance.new("TextButton")
+local Frame_3 = Instance.new("Frame")
+
+--Properties:
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+TextButton.Parent = ScreenGui
+TextButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BackgroundTransparency = 0.500
+TextButton.BorderColor3 = Color3.fromRGB(27, 42, 53)
+TextButton.Position = UDim2.new(0.300000012, 0, 0.300000012, 0)
+TextButton.Size = UDim2.new(0, 10, 0, 10)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = ""
+TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.TextSize = 14.000
+
+Frame.Parent = TextButton
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.BackgroundTransparency = 1.000
+Frame.Position = UDim2.new(0, 0, 1, 0)
+Frame.Size = UDim2.new(0, 335, 0, 260)
+Frame.Visible = false
+
+FirstGUI.Name = "FirstGUI"
+FirstGUI.Parent = Frame
+FirstGUI.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+FirstGUI.BackgroundTransparency = 0.500
+FirstGUI.Size = UDim2.new(0, 167, 0, 20)
+FirstGUI.Font = Enum.Font.SourceSans
+FirstGUI.Text = "AutoFarm"
+FirstGUI.TextColor3 = Color3.fromRGB(0, 255, 255)
+FirstGUI.TextSize = 20.000
+
+Frame_2.Parent = FirstGUI
+Frame_2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame_2.BackgroundTransparency = 0.500
+Frame_2.Position = UDim2.new(0, 0, 1, 0)
+Frame_2.Size = UDim2.new(0, 335, 0, 239)
+
+SecondGUI.Name = "SecondGUI"
+SecondGUI.Parent = Frame
+SecondGUI.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+SecondGUI.BackgroundTransparency = 0.600
+SecondGUI.Position = UDim2.new(0.5, 0, 0, 0)
+SecondGUI.Size = UDim2.new(0, 167, 0, 20)
+SecondGUI.Font = Enum.Font.SourceSans
+SecondGUI.Text = "Credits"
+SecondGUI.TextColor3 = Color3.fromRGB(255, 255, 255)
+SecondGUI.TextSize = 20.000
+
+Frame_3.Parent = SecondGUI
+Frame_3.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame_3.BackgroundTransparency = 0.500
+Frame_3.Position = UDim2.new(-1.00100005, 0, 1, 0)
+Frame_3.Size = UDim2.new(0, 335, 0, 239)
+Frame_3.Visible = false
+
+
+-- Scripts:
+
+local function FJRMRZ_fake_script() -- TextButton.LocalScript 
+	local UIS = game:GetService('UserInputService')
+	
+	local frame = TextButton
+	
+	
+	
+	local dragToggle = nil
+	
+	local dragSpeed = 0
+	
+	local dragStart = nil
+	
+	local startPos = nil
+	
+	
+	
+	local function updateInput(input)
+	
+		local delta = input.Position - dragStart
+	
+		local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+	
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	
+		game:GetService('TweenService'):Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
+	
+	end
+	
+	
+	
+	frame.InputBegan:Connect(function(input)
+	
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
+	
+			dragToggle = true
+	
+			dragStart = input.Position
+	
+			startPos = frame.Position
+	
+			input.Changed:Connect(function()
+	
+				if input.UserInputState == Enum.UserInputState.End then
+	
+					dragToggle = false
+	
+				end
+	
+			end)
+	
+		end
+	
+	end)
+	
+	
+	
+	UIS.InputChanged:Connect(function(input)
+	
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+	
+			if dragToggle then
+	
+				updateInput(input)
+	
+			end
+	
+		end
+	
+	end)
+end
+FJRMRZ_fake_script()
+local function HWFUJ_fake_script() -- ScreenGui.LocalScript 
+	local modmenu = TextButton
+	local mainframe = modmenu.Frame
+	modmenu.MouseButton2Up:Connect(function()
+		if mainframe.Visible == false then
+			modmenu.Size = UDim2.new(0,335,0,10)
+			mainframe.Visible = true
+			wait()
+		else
+			modmenu.Size = UDim2.new(0,10,0,10)
+			mainframe.Visible = false
+			wait()
+		end
+	end)
+	FirstGUI.MouseButton1Up:Connect(function()
+		FirstGUI.Frame.Visible = true
+		FirstGUI.BackgroundTransparency = 0.5
+		FirstGUI.TextColor3 = Color3.new(0, 85, 255)
+		SecondGUI.Frame.Visible = false
+		SecondGUI.BackgroundTransparency = 0.6
+		SecondGUI.TextColor3 = Color3.new(255, 255, 255)
+	end)
+	SecondGUI.MouseButton1Up:Connect(function()
+		SecondGUI.Frame.Visible = true
+		SecondGUI.BackgroundTransparency = 0.5
+		SecondGUI.TextColor3 = Color3.new(0, 85, 255)
+		FirstGUI.Frame.Visible = false
+		FirstGUI.BackgroundTransparency = 0.6
+		FirstGUI.TextColor3 = Color3.new(255, 255, 255)
+	end)
+end
+HWFUJ_fake_script()
+
+--CreateRandomShitOnGui
+
+local gap = UDim2.new(0.1,0,0.1,0)
+local function CreateDropDownMenu(WhichFrame,Name,targetlist,IsAPreSetTable,position) -- Frame_2.LocalScript
+	local TextButton_2 = Instance.new("TextButton")
+	local ScrollingFrame = Instance.new("ScrollingFrame")
+	local UIListLayout = Instance.new("UIListLayout")
+	local gap = UDim2.new(0,0,0,0)
+	TextButton_2.Parent = WhichFrame
+	TextButton_2.Name = Name
+	TextButton_2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	TextButton_2.BackgroundTransparency = 0.500
+	if position == 1 then
+		gap = UDim2.new(0.1,0,0.1,0)
+	elseif position == 2 then
+		gap = UDim2.new(0.1,0,0.5,0)
+	elseif position == 3 then
+		gap = UDim2.new(0.6,0,0.1,0)
+	elseif position == 4 then
+		gap = UDim2.new(0.6,0,0.5,0) 
+	end
+	TextButton_2.Position = gap
+	TextButton_2.Size = UDim2.new(0, 100, 0, 20)
+	TextButton_2.Font = Enum.Font.GothamBold
+	TextButton_2.Text = ""
+	TextButton_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextButton_2.TextSize = 14.000
+	ScrollingFrame.Parent = TextButton_2
+	ScrollingFrame.Active = true
+	ScrollingFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	ScrollingFrame.BackgroundTransparency = 0.700
+	ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ScrollingFrame.Position = UDim2.new(0, 0, 1, 0)
+	ScrollingFrame.Size = UDim2.new(0, 100, 0, 70)
+	ScrollingFrame.Visible = false
+	ScrollingFrame.CanvasSize = UDim2.new(0, 0, 2, 200)
+	ScrollingFrame.ScrollBarThickness = 5
+	UIListLayout.Parent = ScrollingFrame
+	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	local menu = ScrollingFrame
+	local mainbutton = TextButton_2
+	for _,v in pairs(targetlist) do
+		if IsAPreSetTable then
+			local Button = Instance.new("TextButton")
+			Button.Parent = menu
+			Button.BackgroundColor3 = Color3.new(0,0,0)
+			Button.TextColor3 = Color3.new(255, 255, 255)
+			Button.Size = UDim2.new(0,100,0,20)
+			Button.Font = "GothamBold"
+			Button.BackgroundTransparency = 0.7
+			Button.Text = v
+			wait()
+		elseif v:IsA("Model") then
+			local Button = Instance.new("TextButton")
+			Button.Parent = menu
+			Button.BackgroundColor3 = Color3.new(0,0,0)
+			Button.TextColor3 = Color3.new(255, 255, 255)
+			Button.Size = UDim2.new(0,100,0,20)
+			Button.Font = "GothamBold"
+			Button.BackgroundTransparency = 0.7
+			Button.Text = v.Name
+			wait()
+		end
+	end
+	for _,v in pairs(menu:GetChildren()) do
+		if v.ClassName == ("TextButton") then
+			v.MouseButton1Click:Connect(function()
+				mainbutton.Text = v.Text
+				mainbutton.ScrollingFrame.Visible = false
+			end)
+		end
+	end
+	mainbutton.MouseButton1Click:Connect(function()
+		if mainbutton.ScrollingFrame.Visible == false then
+			mainbutton.ScrollingFrame.Visible = true
+		else
+			mainbutton.ScrollingFrame.Visible = false
+		end	
+	end)
+end
+local function CreateCheckBox(WhichFrame,Name,position)
+	local TextLabel = Instance.new("TextLabel")
+	local ImageButton = Instance.new("ImageButton")
+	TextLabel.Parent = WhichFrame
+	TextLabel.Name = Name
+	TextLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.BorderColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BorderSizePixel = 0
+	if position == 1 then
+		gap = UDim2.new(0.1,0,0.1,0)
+	elseif position == 2 then
+		gap = UDim2.new(0.1,0,0.5,0)
+	elseif position == 3 then
+		gap = UDim2.new(0.6,0,0.1,0)
+	elseif position == 4 then
+		gap = UDim2.new(0.6,0,0.5,0)
+	elseif position == 5 then
+		gap = UDim2.new(0.349,0,0.81,0)
+	end
+	TextLabel.Position = gap
+	TextLabel.Size = UDim2.new(0, 100, 0, 20)
+	TextLabel.Font = Enum.Font.GothamBold
+	TextLabel.Text = Name
+	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.TextSize = 14.000
+	ImageButton.Parent = TextLabel
+	ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	ImageButton.BackgroundTransparency = 0.700
+	ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ImageButton.BorderSizePixel = 2
+	ImageButton.Position = UDim2.new(1.05, 0, 0, 0)
+	ImageButton.Size = UDim2.new(0, 20, 0, 20)
+	ImageButton.HoverImage = "http://www.roblox.com/asset/?id=6059207872"
+	local button = ImageButton
+	button.MouseButton1Click:Connect(function()
+		if button.Image == "" then
+			button.Image = "http://www.roblox.com/asset/?id=6059207872"
+			wait(1)
+		else
+			button.Image = ""
+			wait(1)
+		end	
+	end)
+end
