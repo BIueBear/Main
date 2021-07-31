@@ -186,7 +186,7 @@ local function CreateDropDownMenu(WhichFrame,Name,Text,targetlist,IsAPreSetTable
 	local mainbutton = TextButton_2
 	local HowManyButtons = UDim2.new(0,0,0,0)
 	for _,v in pairs(targetlist) do
-		if IsAPreSetTable and not menu:FindFirstChild(v.Name) then
+		if IsAPreSetTable and not menu:FindFirstChild(v) then
 			local Button = Instance.new("TextButton")
 			Button.Parent = menu
 			Button.BackgroundColor3 = Color3.new(0,0,0)
@@ -355,5 +355,4 @@ local function CreateNewFrame(Name,Text,visible)
 		end
 	end)
 end
-
 --CreationPart:
